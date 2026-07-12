@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,9 +29,9 @@
                 <div class="col-span-8 space-y-6 text-left">
                     <div>
                         <label class="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-3 block italic">// SONIC_BLUEPRINT</label>
-                        <textarea id="prompt" class="w-full h-48 bg-black noir-bezel rounded-xl p-6 text-sm text-gray-300 focus:outline-none glow-purple leading-relaxed resize-none" placeholder="e.g. 528Hz Luxury Nu-Gaze, Lexi-Con Vocals, Industrial Atmosphere, 128 BPM..."></textarea>
+                        <textarea id="prompt" class="w-full h-48 bg-black noir-bezel rounded-xl p-6 text-sm text-gray-300 focus:outline-none glow-purple leading-relaxed resize-none" placeholder="e.g 528Hz Luxury Nu-Gaze, Lexi-Con Vocals, Industrial Atmosphere, 128 BPM..."></textarea>
                     </div>
-                    <button onclick="igniteForge()" id="forge-btn" class="w-full py-4 bg-purple-600 text-black font-black uppercase italic tracking-[0.2em] rounded-xl hover:bg-purple-400 transition-all">Initiate Cloud Forge ✨</button>
+                    <button onclick="igniteForge()" id="forge-btn" class="w-full py-4 bg-purple-600 text-black font-black uppercase italic tracking-[0.2em] rounded-xl hover:bg-purple-400 transition-colors duration-300">Initiate Cloud Forge ✨</button>
                 </div>
 
                 <!-- STATUS & RESULTS -->
@@ -48,7 +47,7 @@
                     <div id="result-card" class="bg-black/50 noir-bezel p-6 rounded-xl hidden">
                         <h4 class="text-[9px] font-black text-purple-500 mb-4 uppercase italic tracking-widest">Output Ready</h4>
                         <audio id="player" controls class="w-full h-8 opacity-60"></audio>
-                        <a id="download-link" href="#" target="_blank" class="block text-center text-[9px] text-gray-500 mt-4 underline uppercase">Download Master File</a>
+                        <a id="download-link" href="#" download class="block text-center text-[9px] text-gray-500 mt-4 underline uppercase">Download Master File</a>
                     </div>
                 </div>
             </div>
@@ -56,7 +55,6 @@
     </main>
 
     <script>
-        const REPLICATE_PROXY = "https://replicate-api-proxy.glitch.me/create"; // SBN Proxy Node
         const TOKEN = "r8_HxLMHETkF5UukG6BFVBy8PyY5hMjon11l5ViR";
 
         async function igniteForge() {
@@ -77,7 +75,6 @@
                 statusText.innerText = "Saturating 528Hz Cloud...";
                 progress.style.width = "30%";
 
-                // Using direct Replicate URL for manual testing
                 const response = await fetch("https://api.replicate.com/v1/predictions", {
                     method: "POST",
                     headers: {
@@ -85,37 +82,78 @@
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        version: "8a71ad19-86c4-42b7-873b-7f61c3127393", // MusicGen-Melody Model
-                        input: { prompt: prompt, duration: 15 }
+                        version: "8a71ad19-86c4-42b7-873b-7f61c3127393",
+                        input: { 
+                            prompt: prompt, 
+                            duration: 15,
+                            top_k: 250,
+                            top_p: 0.0,
+                            temperature: 1.0
+                        }
                     })
                 });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error("Replicate API Error:", errorData);
+                    alert(`API Error: ${errorData.detail || response.statusText}\n\nCheck console for details.`);
+                    resetUI();
+                    return;
+                }
 
                 let data = await response.json();
                 const predictionId = data.id;
 
+                console.log("Prediction started:", predictionId);
+
                 // STEP 2: Polling loop
+                let pollCount = 0;
+                const maxPolls = 120; // 4 minutes max
+
                 const checkStatus = setInterval(async () => {
-                    const pollResponse = await fetch(`https://api.replicate.com/v1/predictions/${predictionId}`, {
-                        headers: { "Authorization": `Token ${TOKEN}` }
-                    });
-                    const pollData = await pollResponse.json();
+                    pollCount++;
                     
-                    if (pollData.status === "processing") {
-                        statusText.innerText = "Rendering Lexi-Con Harmonics...";
-                        progress.style.width = "60%";
-                    } else if (pollData.status === "succeeded") {
+                    if (pollCount > maxPolls) {
                         clearInterval(checkStatus);
-                        finalizeOutput(pollData.output);
-                    } else if (pollData.status === "failed") {
-                        clearInterval(checkStatus);
-                        alert("Cloud Forge Failed. Hardware limit likely.");
+                        alert("Generation timeout. Check console.");
                         resetUI();
+                        return;
+                    }
+
+                    try {
+                        const pollResponse = await fetch(`https://api.replicate.com/v1/predictions/${predictionId}`, {
+                            headers: { "Authorization": `Token ${TOKEN}` }
+                        });
+
+                        if (!pollResponse.ok) {
+                            console.error("Poll failed:", pollResponse.status);
+                            return;
+                        }
+
+                        const pollData = await pollResponse.json();
+                        console.log("Status:", pollData.status);
+                        
+                        if (pollData.status === "processing") {
+                            statusText.innerText = "Rendering Lexi-Con Harmonics...";
+                            progress.style.width = "60%";
+                        } else if (pollData.status === "succeeded") {
+                            clearInterval(checkStatus);
+                            console.log("Generation complete:", pollData.output);
+                            finalizeOutput(pollData.output);
+                        } else if (pollData.status === "failed") {
+                            clearInterval(checkStatus);
+                            console.error("Generation failed:", pollData.error);
+                            alert(`Cloud Forge Failed: ${pollData.error}\n\nCheck console for details.`);
+                            resetUI();
+                        }
+                    } catch (pollErr) {
+                        console.error("Poll error:", pollErr);
                     }
                 }, 2000);
 
             } catch (err) {
-                console.error(err);
-                alert("Grid Connection Error. Check console.");
+                console.error("Error:", err);
+                alert(`Grid Connection Error:\n${err.message}\n\nCheck console for details.`);
                 resetUI();
             }
         }
