@@ -1,1 +1,138 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBN // MUSIC GEN CLOUD FORGE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { background-color: #050505; color: #ffffff; font-family: 'Inter', sans-serif; overflow: hidden; }
+        .noir-bezel { border: 1.8px solid rgba(255, 255, 255, 0.05); }
+        .glow-purple:focus { box-shadow: 0 0 15px rgba(168, 85, 247, 0.2); border-color: #a855f7; }
+        .scanline { background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%); background-size: 100% 4px; }
+        .loading-bar { transition: width 0.5s ease-in-out; }
+    </style>
+</head>
+<body class="h-screen flex items-center justify-center p-6">
+    <div class="scanline absolute inset-0 pointer-events-none opacity-20"></div>
+
+    <main class="w-full max-w-4xl relative z-10">
+        <div class="mb-10 text-left">
+            <h1 class="text-4xl font-black uppercase italic tracking-tighter text-white">Music Gen <span class="text-purple-500">Forge</span></h1>
+            <p class="text-gray-500 text-[10px] uppercase tracking-[0.4em] font-black opacity-60">Engine: Replicate Cloud / MusicGen-Melody</p>
+        </div>
+
+        <div class="noir-bezel bg-[#0a0a0a] rounded-2xl p-10 shadow-2xl">
+            <div class="grid grid-cols-12 gap-10">
+                <!-- PROMPT ENTRY -->
+                <div class="col-span-8 space-y-6 text-left">
+                    <div>
+                        <label class="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-3 block italic">// SONIC_BLUEPRINT</label>
+                        <textarea id="prompt" class="w-full h-48 bg-black noir-bezel rounded-xl p-6 text-sm text-gray-300 focus:outline-none glow-purple leading-relaxed resize-none" placeholder="e.g. 528Hz Luxury Nu-Gaze, Lexi-Con Vocals, Industrial Atmosphere, 128 BPM..."></textarea>
+                    </div>
+                    <button onclick="igniteForge()" id="forge-btn" class="w-full py-4 bg-purple-600 text-black font-black uppercase italic tracking-[0.2em] rounded-xl hover:bg-purple-400 transition-all">Initiate Cloud Forge ✨</button>
+                </div>
+
+                <!-- STATUS & RESULTS -->
+                <div class="col-span-4 space-y-6">
+                    <div id="status-card" class="bg-black/50 noir-bezel p-6 rounded-xl hidden">
+                        <h4 class="text-[9px] font-black text-orange-500 mb-4 uppercase italic tracking-widest">Status</h4>
+                        <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                            <div id="progress" class="h-full bg-orange-500 w-0 loading-bar"></div>
+                        </div>
+                        <p id="status-text" class="text-[8px] font-mono text-orange-500 mt-3 uppercase tracking-widest italic">Uplinking...</p>
+                    </div>
+
+                    <div id="result-card" class="bg-black/50 noir-bezel p-6 rounded-xl hidden">
+                        <h4 class="text-[9px] font-black text-purple-500 mb-4 uppercase italic tracking-widest">Output Ready</h4>
+                        <audio id="player" controls class="w-full h-8 opacity-60"></audio>
+                        <a id="download-link" href="#" target="_blank" class="block text-center text-[9px] text-gray-500 mt-4 underline uppercase">Download Master File</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const REPLICATE_PROXY = "https://replicate-api-proxy.glitch.me/create"; // SBN Proxy Node
+        const TOKEN = "r8_HxLMHETkF5UukG6BFVBy8PyY5hMjon11l5ViR";
+
+        async function igniteForge() {
+            const prompt = document.getElementById('prompt').value;
+            const btn = document.getElementById('forge-btn');
+            const statusCard = document.getElementById('status-card');
+            const statusText = document.getElementById('status-text');
+            const progress = document.getElementById('progress');
+
+            if (!prompt) return alert("Architect, enter a blueprint first!");
+
+            btn.disabled = true;
+            btn.innerText = "Uplinking...";
+            statusCard.classList.remove('hidden');
+
+            try {
+                // STEP 1: Send Prediction
+                statusText.innerText = "Saturating 528Hz Cloud...";
+                progress.style.width = "30%";
+
+                // Using direct Replicate URL for manual testing
+                const response = await fetch("https://api.replicate.com/v1/predictions", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Token ${TOKEN}`,
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        version: "8a71ad19-86c4-42b7-873b-7f61c3127393", // MusicGen-Melody Model
+                        input: { prompt: prompt, duration: 15 }
+                    })
+                });
+
+                let data = await response.json();
+                const predictionId = data.id;
+
+                // STEP 2: Polling loop
+                const checkStatus = setInterval(async () => {
+                    const pollResponse = await fetch(`https://api.replicate.com/v1/predictions/${predictionId}`, {
+                        headers: { "Authorization": `Token ${TOKEN}` }
+                    });
+                    const pollData = await pollResponse.json();
+                    
+                    if (pollData.status === "processing") {
+                        statusText.innerText = "Rendering Lexi-Con Harmonics...";
+                        progress.style.width = "60%";
+                    } else if (pollData.status === "succeeded") {
+                        clearInterval(checkStatus);
+                        finalizeOutput(pollData.output);
+                    } else if (pollData.status === "failed") {
+                        clearInterval(checkStatus);
+                        alert("Cloud Forge Failed. Hardware limit likely.");
+                        resetUI();
+                    }
+                }, 2000);
+
+            } catch (err) {
+                console.error(err);
+                alert("Grid Connection Error. Check console.");
+                resetUI();
+            }
+        }
+
+        function finalizeOutput(url) {
+            document.getElementById('status-card').classList.add('hidden');
+            document.getElementById('result-card').classList.remove('hidden');
+            document.getElementById('player').src = url;
+            document.getElementById('download-link').href = url;
+            document.getElementById('forge-btn').disabled = false;
+            document.getElementById('forge-btn').innerText = "Forge Another Hit ✨";
+        }
+
+        function resetUI() {
+            document.getElementById('forge-btn').disabled = false;
+            document.getElementById('forge-btn').innerText = "Initiate Cloud Forge ✨";
+        }
+    </script>
+</body>
+</html>
