@@ -644,33 +644,7 @@ function tick(){
     el.textContent = (base+delta).toLocaleString();
   }
 }
-/* ================= V6 ENGINE: RENDER CURRENT TRACK ================= */
-function renderCurrentTrack() {
-  const t = tracks[currentIndex];
-  
-  // 1. Update Text Labels
-  document.getElementById('npTitle').textContent = t.title;
-  document.getElementById('npArtist').textContent = t.artist;
-  
-  // 2. Set Audio Source (Mapping to your /music folder)
-  player.src = 'music/' + t.file; 
-  
-  // 3. THE CRITICAL FIX: Sync Actual Song Length
-  player.onloadedmetadata = function() {
-    t.duration = player.duration; // Overwrites the placeholder with the real 5:02
-    document.getElementById('npDuration').textContent = fmtTime(t.duration);
-    console.log("📡 CDFM SYNC: " + t.title + " | ACTUAL TIME: " + fmtTime(t.duration));
-  };
 
-  // 4. Update Playlist Highlight
-  document.querySelectorAll('.playlist-row').forEach((row, i) => {
-    row.classList.remove('active');
-    if (i === currentIndex) row.classList.add('active');
-  });
-
-  // 5. Reset Waveform Visuals
-  if (typeof buildNpWave === "function") buildNpWave(currentIndex);
-}
 renderCurrentTrack();
 setInterval(tick, 250);
 </script>
