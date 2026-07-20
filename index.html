@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CDFM 108.8 FM — The Station</title>
+<title>CDFM 108.8 — Chinese Dance FM</title>
 <style>
   :root{
     --bg: #050a14;
@@ -12,6 +12,7 @@
     --blue: #2196f3;
     --blue-bright: #4fc3ff;
     --orange: #ff9a3d;
+    --red: #e53935;
     --text-dim: #7d92ad;
     --text: #eaf2fb;
     --white: #ffffff;
@@ -36,7 +37,7 @@
     border-radius:14px;
     overflow:hidden;
     background:
-      radial-gradient(ellipse at 30% 120%, rgba(33,150,243,0.18), transparent 55%),
+      radial-gradient(ellipse at 30% 120%, rgba(255,90,40,0.12), transparent 55%),
       linear-gradient(180deg,#050912 0%, #060b16 60%, #050a14 100%);
     border:1px solid #0e1c30;
     padding:26px 30px 30px;
@@ -46,7 +47,7 @@
     position:absolute;
     inset:0;
     background-image:
-      repeating-linear-gradient(90deg, rgba(79,195,255,0.03) 0px, transparent 2px, transparent 40px),
+      repeating-linear-gradient(90deg, rgba(255,154,61,0.03) 0px, transparent 2px, transparent 40px),
       linear-gradient(0deg, rgba(5,10,20,0.2), rgba(5,10,20,0.85) 70%);
     pointer-events:none;
   }
@@ -56,13 +57,13 @@
   .on-air-badge{
     display:inline-flex; align-items:center; gap:8px;
     font-size:12px; letter-spacing:2px; font-weight:700;
-    color:var(--blue-bright);
+    color:var(--red);
     margin-bottom:18px;
   }
   .on-air-badge .dot{
     width:8px; height:8px; border-radius:50%;
-    background:var(--blue-bright);
-    box-shadow:0 0 8px 2px rgba(79,195,255,0.8);
+    background:var(--red);
+    box-shadow:0 0 8px 2px rgba(229,57,53,0.8);
     animation: pulse-dot 1.4s ease-in-out infinite;
   }
   .on-air-badge span.now{ color:var(--text); font-weight:400; }
@@ -79,7 +80,6 @@
     color:var(--white);
     text-transform:uppercase;
     margin:0;
-    font-stretch:condensed;
   }
   .station-freq{
     font-size:56px;
@@ -88,10 +88,10 @@
     margin:6px 0 14px;
     text-transform:uppercase;
   }
-  .station-freq .fm{ color:var(--blue-bright); }
+  .station-freq .fm{ color:var(--orange); }
 
   .tagline-eyebrow{
-    color:var(--blue-bright);
+    color:var(--orange);
     font-size:15px;
     font-weight:700;
     letter-spacing:8px;
@@ -103,9 +103,9 @@
     font-size:15px;
     letter-spacing:1px;
     margin-bottom:26px;
+    max-width:640px;
   }
 
-  /* mini equalizer strip across hero */
   .eq-strip{
     display:flex; align-items:flex-end; gap:2px;
     height:56px;
@@ -114,10 +114,10 @@
   }
   .eq-strip .bar{
     width:3px;
-    background:linear-gradient(180deg, var(--blue-bright), var(--blue));
+    background:linear-gradient(180deg, var(--orange), var(--red));
     border-radius:2px;
-    opacity:0.85;
-    animation: eqbar 1.2s ease-in-out infinite;
+    opacity:0.9;
+    transition: height 0.08s linear;
   }
 
   .stat-row{
@@ -126,19 +126,26 @@
   .stat{ display:flex; flex-direction:column; gap:6px; }
   .stat .icon-label{
     display:flex; align-items:center; gap:8px;
-    color:var(--blue-bright);
+    color:var(--orange);
     font-size:12px; letter-spacing:1px; font-weight:700; text-transform:uppercase;
   }
   .stat .icon-label svg{ width:16px; height:16px; }
   .stat .value{ font-size:17px; font-weight:700; color:var(--text); letter-spacing:0.5px; }
+  .genre-tags{ display:flex; gap:8px; flex-wrap:wrap; }
+  .genre-tags span{
+    border:1px solid rgba(255,154,61,0.5);
+    color:var(--text);
+    font-size:12px; font-weight:700;
+    padding:3px 10px; border-radius:5px;
+  }
 
   .hero-right{
     flex:0 0 330px;
     position:relative;
     border-radius:12px;
     overflow:hidden;
-    border:1px solid rgba(79,195,255,0.4);
-    box-shadow:0 0 34px rgba(33,150,243,0.25), inset 0 0 40px rgba(0,0,0,0.4);
+    border:1px solid rgba(255,154,61,0.4);
+    box-shadow:0 0 34px rgba(255,90,40,0.2), inset 0 0 40px rgba(0,0,0,0.4);
     height:380px;
     background:#02060d;
   }
@@ -160,7 +167,7 @@
     padding:22px 24px;
   }
   .panel h2{
-    color:var(--blue-bright);
+    color:var(--orange);
     font-size:14px;
     letter-spacing:3px;
     text-transform:uppercase;
@@ -168,31 +175,31 @@
     font-weight:800;
   }
 
-  /* Now on air card */
   .nowplaying{
     display:flex; gap:18px; align-items:center;
   }
   .cover{
     width:104px; height:104px; border-radius:8px; flex-shrink:0;
     position:relative; overflow:hidden;
-    border:1px solid rgba(79,195,255,0.35);
+    border:1px solid rgba(255,154,61,0.35);
   }
   .cover canvas{ position:absolute; inset:0; width:100%; height:100%; }
   .np-info{ flex:1; min-width:0; }
   .live-chip{
     display:inline-flex; align-items:center; gap:6px;
-    border:1px solid var(--blue-bright);
-    color:var(--blue-bright);
+    border:1px solid var(--red);
+    background:var(--red);
+    color:var(--white);
     font-size:11px; font-weight:800; letter-spacing:2px;
     padding:3px 10px; border-radius:5px;
     margin-bottom:10px;
   }
   .live-chip .liveled{
-    width:6px;height:6px;border-radius:50%;background:var(--blue-bright);
+    width:6px;height:6px;border-radius:50%;background:var(--white);
     animation:pulse-dot 1s ease-in-out infinite;
   }
   .np-title{ font-size:21px; font-weight:800; color:var(--white); margin:0 0 4px; }
-  .np-artist{ color:var(--blue-bright); font-size:13px; font-weight:700; letter-spacing:1px; }
+  .np-artist{ color:var(--orange); font-size:13px; font-weight:700; letter-spacing:1px; }
   .np-time-row{
     display:flex; justify-content:space-between; align-items:center; margin-top:6px;
   }
@@ -204,14 +211,13 @@
   }
   .np-wave .bar{
     flex:1; min-width:2px; max-width:4px;
-    background:#1c3a56;
+    background:#3a2418;
     border-radius:2px;
-    transition: background 0.15s linear;
+    transition: background 0.12s linear, height 0.08s linear;
   }
-  .np-wave .bar.played{ background: var(--blue-bright); }
+  .np-wave .bar.played{ background: var(--orange); }
   .np-wave .bar.live{ background: var(--white); }
 
-  /* up-next strip */
   .up-next{
     margin-top:18px;
     padding-top:14px;
@@ -222,21 +228,19 @@
     letter-spacing:0.5px;
   }
   .up-next b{ color:var(--text); font-weight:700; }
-  .up-next .arrow{ color:var(--blue-bright); }
+  .up-next .arrow{ color:var(--orange); }
 
-  /* About panel */
   .about-body{ color:#b7c6da; font-size:14px; line-height:1.65; }
   .about-body p{ margin:0 0 14px; }
   .network-chip{
     display:inline-flex; align-items:center; gap:8px;
-    border:1px solid var(--blue-bright);
-    color:var(--blue-bright);
+    border:1px solid var(--orange);
+    color:var(--orange);
     font-size:12px; font-weight:700; letter-spacing:1px;
     padding:8px 14px; border-radius:7px;
     margin-top:6px;
   }
 
-  /* Playlist */
   .playlist-panel{
     margin-top:22px;
     background:var(--panel);
@@ -258,33 +262,47 @@
   .playlist-row .idx{ color:var(--text-dim); font-size:13px; font-weight:700; }
   .playlist-row .thumb{
     width:56px; height:56px; border-radius:6px; overflow:hidden; position:relative;
-    border:1px solid rgba(79,195,255,0.25);
+    border:1px solid rgba(255,154,61,0.25);
   }
   .playlist-row .thumb canvas{ position:absolute; inset:0; width:100%; height:100%; }
   .playlist-row .meta .title{ font-size:14px; font-weight:700; color:var(--text); }
-  .playlist-row .meta .artist{ font-size:12px; color:var(--blue-bright); font-weight:600; margin-top:2px; }
+  .playlist-row .meta .artist{ font-size:12px; color:var(--orange); font-weight:600; margin-top:2px; }
   .playlist-row .pwave{ display:flex; align-items:center; gap:2px; height:24px; }
-  .playlist-row .pwave .b{ width:2.5px; background:#1c3a56; border-radius:2px; transition: background .15s linear;}
-  .playlist-row .pwave .b.played{ background:var(--blue-bright); }
-  .playlist-row .dur{ color:var(--blue-bright); font-size:13px; font-weight:700; text-align:right; font-variant-numeric:tabular-nums;}
+  .playlist-row .pwave .b{ width:2.5px; background:#3a2418; border-radius:2px; transition: background .12s linear;}
+  .playlist-row .pwave .b.played{ background:var(--orange); }
+  .playlist-row .dur{ color:var(--orange); font-size:13px; font-weight:700; text-align:right; font-variant-numeric:tabular-nums;}
 
   .playlist-row.active{
-    background: rgba(33,150,243,0.08);
-    box-shadow: inset 3px 0 0 var(--blue-bright);
+    background: rgba(255,90,40,0.08);
+    box-shadow: inset 3px 0 0 var(--orange);
   }
-  .playlist-row.next-up .meta .title{ color:var(--orange); }
-  .playlist-row.next-up::after{
-    content:"UP NEXT";
-    justify-self:end;
-  }
+  .playlist-row.next-up .meta .title{ color:var(--blue-bright); }
 
   .eq-mini{ display:flex; align-items:flex-end; gap:2px; height:18px; width:20px;}
-  .eq-mini .m{ width:3px; background:var(--blue-bright); border-radius:1px; animation:eqbar 1s ease-in-out infinite; }
+  .eq-mini .m{ width:3px; background:var(--orange); border-radius:1px; transition:height 0.08s linear; }
 
-  @keyframes eqbar{
-    0%,100%{ height:20%; }
-    50%{ height:100%; }
+  .start-hint{
+    position:fixed; inset:0; z-index:50;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(3,6,12,0.88);
+    backdrop-filter: blur(3px);
+    color:var(--text);
+    font-size:14px; letter-spacing:2px; text-transform:uppercase;
+    cursor:pointer;
+    transition: opacity 0.4s ease;
   }
+  .start-hint .box{
+    border:1px solid var(--orange);
+    padding:22px 34px;
+    border-radius:10px;
+    text-align:center;
+    color:var(--orange);
+    font-weight:700;
+  }
+  .start-hint .box small{
+    display:block; margin-top:8px; color:var(--text-dim); font-weight:400; letter-spacing:1px; text-transform:none; font-size:12px;
+  }
+  .start-hint.hidden{ opacity:0; pointer-events:none; }
 
   footer.credit{
     text-align:center; color:#3f5674; font-size:11px; letter-spacing:2px;
@@ -301,6 +319,11 @@
 </style>
 </head>
 <body>
+
+<div class="start-hint" id="startHint">
+  <div class="box">TAP ANYWHERE TO TUNE IN<small>CDFM 108.8 broadcasts continuously once the signal connects</small></div>
+</div>
+
 <div class="wrap">
 
   <!-- ============ HERO ============ -->
@@ -312,7 +335,7 @@
         <h1 class="station-name">CDFM</h1>
         <div class="station-freq">108.8 <span class="fm">FM</span></div>
         <div class="tagline-eyebrow">THE STATION</div>
-        <div class="tagline">THE PULSE OF THE SOVEREIGN GRID</div>
+        <div class="tagline">CHINESE DANCE FM — THE FREQUENCY OF THE SABAH DAWN</div>
 
         <div class="eq-strip" id="heroEq"></div>
 
@@ -326,30 +349,34 @@
           </div>
           <div class="stat">
             <div class="icon-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13M9 9l12-2M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM18 19a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+              TRACKS
+            </div>
+            <div class="value">97</div>
+          </div>
+          <div class="stat">
+            <div class="icon-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>
+              PLAYS
+            </div>
+            <div class="value">451</div>
+          </div>
+          <div class="stat">
+            <div class="icon-label">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 20v-1a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v1M20 20v-1a4 4 0 0 0-3-3.87M14 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg>
-              LIVE LISTENERS
+              LISTENERS
             </div>
-            <div class="value" id="listenerCount">2,785</div>
+            <div class="value" id="listenerCount">0</div>
           </div>
           <div class="stat">
-            <div class="icon-label">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h3l2 8 4-16 2 8h7"/></svg>
-              GENRE
-            </div>
-            <div class="value">ELECTRONIC</div>
-          </div>
-          <div class="stat">
-            <div class="icon-label">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z"/></svg>
-              LOCATION
-            </div>
-            <div class="value">SOVEREIGN GRID</div>
+            <div class="icon-label">GENRE</div>
+            <div class="genre-tags"><span>EDM</span><span>House</span><span>Techno</span></div>
           </div>
         </div>
       </div>
 
       <div class="hero-right">
-        <img id="profilePhoto" src="cover art.png" alt="CDFM 108.8 FM station profile art">
+        <img src="cover-art.png" alt="CDFM 108.8 station profile art">
       </div>
     </div>
   </div>
@@ -362,30 +389,28 @@
         <div class="cover"><canvas id="npCover" width="104" height="104"></canvas></div>
         <div class="np-info">
           <div class="live-chip"><span class="liveled"></span>LIVE</div>
-          <div class="np-title" id="npTitle">1 - 这段旅程没有终点 - This journey has no end</div>
-          <div class="np-artist" id="npArtist">DJPOLO</div>
+          <div class="np-title" id="npTitle">—</div>
+          <div class="np-artist" id="npArtist">—</div>
           <div class="np-time-row">
             <div class="np-time"><span id="npElapsed">00:00</span></div>
-            <div class="np-time" id="npDuration">02:45</div>
+            <div class="np-time" id="npDuration">00:00</div>
           </div>
           <div class="np-wave" id="npWave"></div>
         </div>
       </div>
       <div class="up-next">
-        <span class="arrow">&#9654;</span> WHEN THIS TRACK ENDS &mdash; UP NEXT: <b id="upNextLabel">2 - 这就是我爱你 - This Is How I Love You</b>
+        <span class="arrow">&#9654;</span> WHEN THIS TRACK ENDS &mdash; UP NEXT: <b id="upNextLabel">—</b>
       </div>
     </div>
 
     <div class="panel">
-      <h2>ABOUT CDFM 108.8 FM</h2>
+      <h2>ABOUT CDFM 108.8</h2>
       <div class="about-body">
-        <p>Welcome to Chinese Dance FM (CDFM 107.9 MHz) — The Frequency of the Sabah Dawn.
-Lead Architect @djpolomaco, the original force behind the C4 era, has returned to reclaim the bridge. Fusing a 15-year radio engineering legacy (Astro Radio) with the high-octane evolution of the Cantonese Techno-Rap movement.
-From remixing HK legends like Andy Lau, Sammi Cheng, Aaron Kwok, and Dayo Wong, to performing live across the Trinity (Malaysia, Singapore, Hong Kong) — this is the high-fidelity DNA they can't replicate., and real-time transmissions 24/7.</p>
-        <p>This is more than a station.<br>This is the frequency of the future.</p>
+        <p>Welcome to Chinese Dance FM — the frequency of the Sabah Dawn. Lead architect @djpolomaco, the original force behind the C4 era, has returned to reclaim the bridge, fusing a 15-year radio engineering legacy with the high-octane evolution of the Cantonese techno-rap movement.</p>
+        <p>From remixing HK legends to performing live across the Trinity — Malaysia, Singapore, Hong Kong — this is the high-fidelity DNA they can't replicate. Your lane. Your identity. Your station.</p>
         <div class="network-chip">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 7.5a5 5 0 0 1 0 9M5 5a9 9 0 0 1 0 14M12 12a1 1 0 1 0 0-.001"/></svg>
-          SOVEREIGN GRID BROADCAST NETWORK
+          POWERED BY AETHERWAVE STUDIO
         </div>
       </div>
     </div>
@@ -397,58 +422,56 @@ From remixing HK legends like Andy Lau, Sammi Cheng, Aaron Kwok, and Dayo Wong, 
     <div id="playlistRows"></div>
   </div>
 
-  <footer class="credit">CDFM 108.8 FM &middot; Sovereign Grid Broadcast Network &middot; On Air 24/7</footer>
+  <footer class="credit">CDFM 108.8 &middot; Chinese Dance FM &middot; On Air 24/7</footer>
 </div>
 
+<audio id="player" preload="auto"></audio>
+
 <script>
-/* ================= TRACK DATA ================= */
+/* ================= TRACK DATA (real audio files) ================= */
 const tracks = [
-  { title:"1 - 这段旅程没有终点 - This journey has no end", artist:"DJPOLO", duration:165, palette:['#0d1b2e','#4fc3ff','#ff9a3d'], file:"1 - 这段旅程没有终点 - This journey has no end.mp3" },
-  { title:"2 - 这就是我爱你 - This Is How I Love You", artist:"DJPOLO", duration:192, palette:['#12100d','#ff9a3d','#7a2b0a'], file:"2 - 这就是我爱你 - This Is How I Love You.mp3" },
-  { title:"3 - 越难越好 - The Harder It Is", artist:"DJPOLO", duration:118, palette:['#04101c','#2b8fd6','#0d3a5c'], file:"3 - 越难越好 - The Harder It Is.mp3" },
-  { title:"4 - 让我看见心 - baby let me see your heart", artist:"DJPOLO", duration:185, palette:['#290052','#00f2ff','#ff3b30'], file:"4 - 让我看见心 - baby let me see your heart.mp3" },
-  { title:"5 - 让你靠近我 - let me love you", artist:"DJPOLO", duration:174, palette:['#0a1220','#4fc3ff','#2196f3'], file:"5 - 让你靠近我 - let me love you.mp3" },
-  { title:"6 - 给我一个人 - Someone To Love", artist:"DJPOLO", duration:210, palette:['#050a14','#ff9a3d','#4fc3ff'], file:"6 - 给我一个人 - Someone To Love.mp3" },
-  { title:"7 - 甜心宝贝 - Baby Baby", artist:"DJPOLO", duration:168, palette:['#120024','#ff3b30','#00f2ff'], file:"7 - 甜心宝贝 - Baby Baby.mp3" },
-  { title:"9 - 没有你的日子 - how am i supposed to live without you", artist:"DJPOLO", duration:240, palette:['#0d1b2e','#7d92ad','#ffffff'], file:"9 - 没有你的日子 - how am i supposed to live without you.mp3" },
-  { title:"10 - 沙巴夜不打烊 - City Never Sleeps", artist:"DJPOLO", duration:195, palette:['#050b14','#290052','#00f2ff'], file:"10 - 沙巴夜不打烊 - City Never Sleeps.mp3" },
-  { title:"11 - 永远的宝贝 - Forever Baby", artist:"DJPOLO", duration:182, palette:['#0a1422','#4fc3ff','#ff9a3d'], file:"11 - 永远的宝贝 - Forever Baby.mp3" }
+  { title:"THIS JOURNEY HAS NO END", subtitle:"这段旅程没有终点", artist:"DJPOLOMACO", src:"track1.mp3", palette:['#0d1b2e','#ff9a3d','#e53935'] },
+  { title:"THIS IS HOW I LOVE YOU", subtitle:"这就是我爱你", artist:"DJPOLOMACO", src:"track2.mp3", palette:['#12100d','#ff9a3d','#7a2b0a'] },
+  { title:"THE HARDER IT IS",       subtitle:"越难越好",     artist:"DJPOLOMACO", src:"track3.mp3", palette:['#04101c','#ff9a3d','#e53935'] },
+  { title:"BABY LET ME SEE YOUR HEART", subtitle:"让我看见心", artist:"DJPOLOMACO", src:"track4.mp3", palette:['#0b0b12','#ff9a3d','#c0392b'] },
 ];
 
 let currentIndex = 0;
-let elapsed = 0;
+const audio = document.getElementById('player');
 
 function fmtTime(s){
+  if(!isFinite(s) || s < 0) s = 0;
   const m = Math.floor(s/60);
   const sec = Math.floor(s%60);
   return String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
 }
 
-/* ================= COVER ART GENERATOR (canvas, digital-grid style) ================= */
+/* ================= COVER ART GENERATOR ================= */
+function mulberry32(seed){
+  let a = seed >>> 0;
+  return function(){
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = (t + Math.imul(t ^ t >>> 7, 61 | t)) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
 function drawCoverArt(canvas, palette, seedOffset){
   const ctx = canvas.getContext('2d');
   const w = canvas.width, h = canvas.height;
   ctx.clearRect(0,0,w,h);
-
-  // background gradient
   const g = ctx.createLinearGradient(0,0,w,h);
   g.addColorStop(0, palette[0]);
   g.addColorStop(1, '#02060d');
   ctx.fillStyle = g;
   ctx.fillRect(0,0,w,h);
 
-  // grid lines
-  ctx.strokeStyle = 'rgba(79,195,255,0.12)';
+  ctx.strokeStyle = 'rgba(255,154,61,0.12)';
   ctx.lineWidth = 1;
   const cell = Math.max(8, w/14);
-  for(let x=0;x<=w;x+=cell){
-    ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke();
-  }
-  for(let y=0;y<=h;y+=cell){
-    ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke();
-  }
+  for(let x=0;x<=w;x+=cell){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke(); }
+  for(let y=0;y<=h;y+=cell){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke(); }
 
-  // diagonal light streaks
   const rand = mulberry32(seedOffset);
   for(let i=0;i<6;i++){
     const yy = rand()*h;
@@ -466,31 +489,20 @@ function drawCoverArt(canvas, palette, seedOffset){
     ctx.stroke();
   }
 
-  // digital numbers scatter
   ctx.font = `${Math.max(8,w*0.09)}px monospace`;
   ctx.fillStyle = 'rgba(255,255,255,0.55)';
-  const nums = ['962','042','726','0.04','5.565','0.026'];
-  nums.forEach((n,i)=>{
+  const nums = ['108','88.0','726','0.04','5.565','0.026'];
+  nums.forEach((n)=>{
     const x = (rand()*0.7+0.05)*w;
     const y = (rand()*0.7+0.15)*h;
     ctx.fillText(n, x, y);
   });
 
-  // vignette
   const vg = ctx.createRadialGradient(w/2,h/2,w*0.1,w/2,h/2,w*0.75);
   vg.addColorStop(0,'rgba(0,0,0,0)');
   vg.addColorStop(1,'rgba(0,0,0,0.55)');
   ctx.fillStyle = vg;
   ctx.fillRect(0,0,w,h);
-}
-function mulberry32(seed){
-  let a = seed >>> 0;
-  return function(){
-    a |= 0; a = (a + 0x6D2B79F5) | 0;
-    let t = Math.imul(a ^ a >>> 15, 1 | a);
-    t = (t + Math.imul(t ^ t >>> 7, 61 | t)) ^ t;
-    return ((t ^ t >>> 14) >>> 0) / 4294967296;
-  };
 }
 
 /* ================= BUILD PLAYLIST DOM ================= */
@@ -504,31 +516,25 @@ tracks.forEach((t, i) => {
     <div class="thumb"><canvas width="56" height="56" id="thumb-${i}"></canvas></div>
     <div class="meta">
       <div class="title">${t.title}</div>
-      <div class="artist">${t.artist}</div>
+      <div class="artist">${t.subtitle} &middot; ${t.artist}</div>
     </div>
     <div class="pwave" id="pwave-${i}"></div>
-    <div class="dur">${fmtTime(t.duration)}</div>
+    <div class="dur" id="dur-${i}">--:--</div>
   `;
   playlistRoot.appendChild(row);
 });
+tracks.forEach((t,i)=>{ drawCoverArt(document.getElementById('thumb-'+i), t.palette, i*13+3); });
 
-/* draw playlist thumbs */
-tracks.forEach((t,i)=>{
-  drawCoverArt(document.getElementById('thumb-'+i), t.palette, i*13+3);
-});
-
-/* build mini waveforms for playlist rows (static bar-heights, fixed per track via seeded random) */
+/* mini static waveforms per playlist row */
 const playlistBars = [];
 tracks.forEach((t,i)=>{
   const wave = document.getElementById('pwave-'+i);
   const rand = mulberry32(i*97+11);
-  const barsCount = 46;
   const bars = [];
-  for(let b=0;b<barsCount;b++){
+  for(let b=0;b<46;b++){
     const el = document.createElement('div');
     el.className = 'b';
-    const height = 4 + rand()*20;
-    el.style.height = height+'px';
+    el.style.height = (4 + rand()*20)+'px';
     wave.appendChild(el);
     bars.push(el);
   }
@@ -542,111 +548,173 @@ function buildNpWave(trackIdx){
   npWaveRoot.innerHTML = '';
   npBars = [];
   const rand = mulberry32(trackIdx*53+21);
-  const barsCount = 90;
-  for(let b=0;b<barsCount;b++){
+  for(let b=0;b<90;b++){
     const el = document.createElement('div');
     el.className = 'bar';
-    const height = 5 + rand()*28;
-    el.style.height = height+'px';
+    el.style.height = (5 + rand()*10)+'px';
     npWaveRoot.appendChild(el);
     npBars.push(el);
   }
 }
 
 /* ================= HERO EQ STRIP ================= */
-const heroEq = document.getElementById('heroEq');
+const heroEqRoot = document.getElementById('heroEq');
+const heroBars = [];
 for(let i=0;i<80;i++){
   const el = document.createElement('div');
   el.className = 'bar';
-  const h = 8 + Math.random()*48;
-  el.style.height = h+'px';
-  el.style.animationDelay = (Math.random()*1.2).toFixed(2)+'s';
-  el.style.animationDuration = (0.8+Math.random()*0.9).toFixed(2)+'s';
-  heroEq.appendChild(el);
+  el.style.height = '6px';
+  heroEqRoot.appendChild(el);
+  heroBars.push(el);
+}
+
+/* ================= WEB AUDIO ANALYSER (real LED reactivity) ================= */
+let audioCtx, analyser, freqData, sourceNode;
+function setupAnalyser(){
+  if(audioCtx) return;
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  sourceNode = audioCtx.createMediaElementSource(audio);
+  analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 256;
+  freqData = new Uint8Array(analyser.frequencyBinCount);
+  sourceNode.connect(analyser);
+  analyser.connect(audioCtx.destination);
 }
 
 /* ================= RENDER CURRENT TRACK ================= */
 function renderCurrentTrack(){
   const t = tracks[currentIndex];
   document.getElementById('npTitle').textContent = t.title;
-  document.getElementById('npArtist').textContent = t.artist;
-  document.getElementById('npDuration').textContent = fmtTime(t.duration);
+  document.getElementById('npArtist').textContent = t.subtitle + ' · ' + t.artist;
   drawCoverArt(document.getElementById('npCover'), t.palette, currentIndex*31+5);
   buildNpWave(currentIndex);
 
   const nextIdx = (currentIndex+1) % tracks.length;
   document.getElementById('upNextLabel').textContent = tracks[nextIdx].title + ' – ' + tracks[nextIdx].artist;
 
-  // playlist active row highlight
-  document.querySelectorAll('.playlist-row').forEach(r=>{
-    r.classList.remove('active','next-up');
-    r.querySelector('.idx').innerHTML = '';
-  });
-  tracks.forEach((tt,i)=>{
-    document.getElementById('idx-'+i).textContent = String(i+1).padStart(2,'0');
-  });
+  document.querySelectorAll('.playlist-row').forEach(r=> r.classList.remove('active','next-up'));
+  tracks.forEach((tt,i)=>{ document.getElementById('idx-'+i).textContent = String(i+1).padStart(2,'0'); });
 
   const activeRow = document.getElementById('row-'+currentIndex);
   activeRow.classList.add('active');
   const eqMini = document.createElement('div');
   eqMini.className = 'eq-mini';
-  for(let i=0;i<4;i++){
-    const m = document.createElement('div');
-    m.className='m';
-    m.style.animationDelay = (i*0.12)+'s';
-    eqMini.appendChild(m);
-  }
+  for(let i=0;i<4;i++){ const m = document.createElement('div'); m.className='m'; m.style.height='6px'; eqMini.appendChild(m); }
   document.getElementById('idx-'+currentIndex).innerHTML = '';
   document.getElementById('idx-'+currentIndex).appendChild(eqMini);
 
   const nextRow = document.getElementById('row-'+nextIdx);
   if(nextIdx !== currentIndex) nextRow.classList.add('next-up');
 
-  // reset playlist wave played-state
   playlistBars.forEach(bars=> bars.forEach(b=> b.classList.remove('played')));
 }
 
-/* ================= TICK LOOP ================= */
-function tick(){
-  const t = tracks[currentIndex];
-  elapsed += 0.25;
-
-  if(elapsed >= t.duration){
-    currentIndex = (currentIndex+1) % tracks.length;
-    elapsed = 0;
-    renderCurrentTrack();
-  }
-
-  document.getElementById('npElapsed').textContent = fmtTime(elapsed);
-
-  // np waveform progress -> "played" up to progress, current edge bar "live" (bright white)
-  const progress = elapsed / t.duration;
-  const liveIdx = Math.floor(progress * npBars.length);
-  npBars.forEach((b,i)=>{
-    b.classList.remove('live');
-    if(i < liveIdx){ b.classList.add('played'); }
-    else { b.classList.remove('played'); }
-  });
-  if(npBars[liveIdx]) npBars[liveIdx].classList.add('live');
-
-  // playlist row mini waveform progress fill for active row
-  const bars = playlistBars[currentIndex];
-  const pLiveIdx = Math.floor(progress * bars.length);
-  bars.forEach((b,i)=>{
-    if(i < pLiveIdx) b.classList.add('played'); else b.classList.remove('played');
-  });
-
-  // gentle listener count fluctuation
-  if(Math.random() < 0.08){
-    const el = document.getElementById('listenerCount');
-    const base = 2785;
-    const delta = Math.floor(Math.random()*30) - 15;
-    el.textContent = (base+delta).toLocaleString();
-  }
+function loadTrack(i){
+  currentIndex = i;
+  audio.src = tracks[i].src;
+  renderCurrentTrack();
+  audio.play().catch(()=>{ /* waiting for user gesture */ });
 }
 
-renderCurrentTrack();
-setInterval(tick, 250);
+audio.addEventListener('loadedmetadata', ()=>{
+  document.getElementById('npDuration').textContent = fmtTime(audio.duration);
+  document.getElementById('dur-'+currentIndex).textContent = fmtTime(audio.duration);
+});
+
+audio.addEventListener('ended', ()=>{
+  const nextIdx = (currentIndex+1) % tracks.length;
+  loadTrack(nextIdx);
+});
+
+audio.addEventListener('timeupdate', ()=>{
+  document.getElementById('npElapsed').textContent = fmtTime(audio.currentTime);
+  if(audio.duration){
+    const progress = audio.currentTime / audio.duration;
+    const liveIdx = Math.floor(progress * npBars.length);
+    npBars.forEach((b,i)=>{
+      b.classList.remove('live');
+      if(i < liveIdx) b.classList.add('played'); else b.classList.remove('played');
+    });
+    if(npBars[liveIdx]) npBars[liveIdx].classList.add('live');
+
+    const bars = playlistBars[currentIndex];
+    const pLiveIdx = Math.floor(progress * bars.length);
+    bars.forEach((b,i)=>{ if(i < pLiveIdx) b.classList.add('played'); else b.classList.remove('played'); });
+  }
+});
+
+/* pre-fetch durations for all tracks so playlist shows real times immediately */
+tracks.forEach((t,i)=>{
+  const probe = document.createElement('audio');
+  probe.preload = 'metadata';
+  probe.src = t.src;
+  probe.addEventListener('loadedmetadata', ()=>{
+    document.getElementById('dur-'+i).textContent = fmtTime(probe.duration);
+  });
+});
+
+/* ================= ANIMATION LOOP: real frequency-driven LEDs ================= */
+function animate(){
+  requestAnimationFrame(animate);
+  if(!analyser) return;
+  analyser.getByteFrequencyData(freqData);
+
+  // hero strip: sample across spectrum
+  for(let i=0;i<heroBars.length;i++){
+    const idx = Math.floor((i/heroBars.length) * freqData.length * 0.85);
+    const v = freqData[idx] || 0;
+    heroBars[i].style.height = Math.max(6, (v/255)*56) + 'px';
+  }
+
+  // now-playing waveform: overlay live amplitude on top of base shape (only unplayed region reacts)
+  for(let i=0;i<npBars.length;i++){
+    if(npBars[i].classList.contains('played') || npBars[i].classList.contains('live')) continue;
+    const idx = Math.floor((i/npBars.length) * freqData.length * 0.85);
+    const v = freqData[idx] || 0;
+    npBars[i].style.height = Math.max(4, (v/255)*32) + 'px';
+  }
+
+  // mini eq next to active track number
+  const activeRow = document.getElementById('row-'+currentIndex);
+  const miniEls = activeRow ? activeRow.querySelectorAll('.eq-mini .m') : [];
+  miniEls.forEach((m,i)=>{
+    const idx = Math.floor((i/miniEls.length) * freqData.length * 0.6) + 4;
+    const v = freqData[idx] || 0;
+    m.style.height = Math.max(4, (v/255)*18) + 'px';
+  });
+}
+animate();
+
+/* ================= START ON FIRST GESTURE (no visible play button) ================= */
+const startHint = document.getElementById('startHint');
+function startBroadcast(){
+  setupAnalyser();
+  if(audioCtx.state === 'suspended') audioCtx.resume();
+  if(!audio.src){ loadTrack(0); } else { audio.play().catch(()=>{}); }
+  startHint.classList.add('hidden');
+  document.removeEventListener('click', startBroadcast);
+  document.removeEventListener('keydown', startBroadcast);
+  document.removeEventListener('touchstart', startBroadcast);
+}
+document.addEventListener('click', startBroadcast);
+document.addEventListener('keydown', startBroadcast);
+document.addEventListener('touchstart', startBroadcast);
+
+/* attempt silent-friendly autoplay right away; if blocked, the hint above handles it */
+loadTrack(0);
+window.addEventListener('load', ()=>{
+  audio.play().then(()=>{ startHint.classList.add('hidden'); }).catch(()=>{ /* needs gesture */ });
+});
+
+/* gentle listener count fluctuation */
+setInterval(()=>{
+  const el = document.getElementById('listenerCount');
+  if(Math.random() < 0.3){
+    const cur = parseInt(el.textContent.replace(/,/g,'')) || 0;
+    const next = Math.max(0, cur + (Math.random()<0.6 ? 1 : -1));
+    el.textContent = next.toLocaleString();
+  }
+}, 3000);
 </script>
 </body>
 </html>
