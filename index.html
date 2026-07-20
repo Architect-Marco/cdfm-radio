@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>108.8 CHINESE DANCE FM — CDFM</title>
+<style>
+  :root{
+    --bg: #050a14;
+    --panel: #0a1220;
+    --panel-border: #16324f;
+    --blue: #290052; /* Deep Purple */
+    --blue-bright: #00f2ff; /* Teal Glow */
+    --orange: #ff3b30; /* Live Red */
+    --text-dim: #7d92ad;
+    --text: #eaf2fb;
+    --white: #ffffff;
+    --lexi-hud-h: 96px;
+  }
+  *{ box-sizing:border-box; }
+  html,body{
+    margin:0; padding:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .main-scroll{
+    height: calc(100vh - var(--lexi-hud-h));
+    overflow-y: auto;
+    padding-bottom: 40px;
+  }
+  .wrap{ max-width:1536px; margin:0 auto; padding:28px 28px 20px; }
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative; border-radius:14px; overflow:hidden;
+    background: radial-gradient(ellipse at 30% 120%, rgba(0,242,255,0.1), transparent 55%),
+                linear-gradient(180deg,#050912 0%, #060b16 60%, #050a14 100%);
+    border:1px solid #16324f; padding:26px 30px 30px; min-height:430px;
+  }
+  .hero-inner{ position:relative; z-index:2; display:flex; justify-content:space-between; gap:24px; }
+  .station-name{ font-size:78px; font-weight:900; line-height:0.92; color:var(--white); text-transform:uppercase; margin:0; }
+  .station-freq{ font-size:56px; font-weight:900; line-height:1; margin:6px 0 14px; }
+  .station-freq .fm{ color:var(--blue-bright); }
+  .tagline-eyebrow{ color:var(--blue-bright); font-size:15px; font-weight:700; letter-spacing:8px; text-transform:uppercase; }
+
+  /* ============ STATS ============ */
+  .stat-row{ display:flex; gap:44px; margin-top: 20px; }
+  .stat .value{ font-size:22px; font-weight:900; color:var(--white); }
+  .stat .icon-label{ color:var(--text-dim); font-size:11px; letter-spacing:1px; }
+
+  /* ============ LEXI-COMMAND HUD ============ */
+  #lexi-hud {
+    height: var(--lexi-hud-h);
+    background: #000;
+    border-top: 2px solid var(--blue);
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+  }
+  #lexi-input {
+    background: transparent;
+    border: none;
+    color: var(--blue-bright);
+    font-family: 'Courier New', monospace;
+    font-size: 20px;
+    width: 100%;
+    outline: none;
+    letter-spacing: 1px;
+  }
+  .hud-prefix { color: var(--blue); font-weight: bold; margin-right: 15px; font-size: 14px; }
+
+  /* ============ PANELS ============ */
+  .panels{ display:grid; grid-template-columns: 1.55fr 1fr; gap:22px; margin-top:22px; }
+  .panel{ background:var(--panel); border:1px solid var(--panel-border); border-radius:12px; padding:22px 24px; }
+  .panel h2{ color:var(--blue-bright); font-size:14px; letter-spacing:3px; text-transform:uppercase; margin:0 0 18px; }
+  .live-chip{ border:1px solid var(--orange); color:var(--orange); font-size:11px; font-weight:800; padding:3px 10px; border-radius:5px; }
+
+  /* Playlist */
+  .playlist-panel{ margin-top:22px; background:var(--panel); border:1px solid var(--panel-border); border-radius:12px; padding:22px 24px 10px; }
+  .playlist-row{ display:grid; grid-template-columns: 40px 56px 1fr auto 60px; align-items:center; gap:16px; padding:14px 10px; border-bottom:1px solid #101f33; }
+  .playlist-row.active{ background: rgba(0, 242, 255, 0.05); box-shadow: inset 3px 0 0 var(--blue-bright); }
+
+  .eq-strip{ display:flex; align-items:flex-end; gap:2px; height:40px; margin: 15px 0; }
+  .eq-strip .bar{ width:3px; background: var(--blue-bright); animation: eqbar 1.2s infinite; }
+  @keyframes eqbar{ 0%,100%{ height:20%; } 50%{ height:100%; } }
+</style>
+</head>
+<body>
+
+<div class="main-scroll">
+  <div class="wrap">
+    <!-- HERO SECTION -->
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 15px;">← BACK TO STATIONS</div>
+          <h1 class="station-name">CDFM</h1>
+          <div class="station-freq">108.8 <span class="fm">FM</span> <span class="live-chip">LIVE</span></div>
+          <div class="tagline-eyebrow">THE FREQUENCY OF THE SABAH DAWN</div>
+          
+          <div class="eq-strip" id="heroEq"></div>
+
+          <div class="stat-row">
+            <div class="stat"><div class="value">97</div><div class="icon-label">TRACKS</div></div>
+            <div class="stat"><div class="value">451</div><div class="icon-label">PLAYS</div></div>
+            <div class="stat"><div class="value" id="listenerCount">0</div><div class="icon-label">LISTENERS</div></div>
+          </div>
+        </div>
+        <div style="flex: 0 0 380px;">
+            <img src="cover-art.png" style="width:100%; border-radius: 12px; border: 1px solid var(--blue);">
+        </div>
+      </div>
+    </div>
+
+    <div class="panels">
+      <div class="panel">
+        <h2>NOW ON AIR</h2>
+        <div style="display:flex; gap:20px; align-items:center;">
+          <div style="width:100px; height:100px; background:var(--blue); border-radius:8px;"></div>
+          <div>
+            <div class="np-title" id="npTitle" style="font-size:24px; font-weight:900;">你收皮啦</div>
+            <div class="np-artist" style="color:var(--blue-bright);">DJPOLO (Original Mix - C4 Heritage)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>ABOUT 108.8 CDFM</h2>
+        <div style="font-size:14px; line-height:1.6; color: #b7c6da;">
+          <p>Lead Architect <b>@djpolomaco</b>, the original force behind the C4 era, has returned to reclaim the bridge. Fusing a 15-year radio engineering legacy (Astro Radio) with the evolution of the Cantonese Techno-Rap movement.</p>
+          <p>Powered by Aetherwave Studio. Human. Machine. United. 🤝🤖</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="playlist-panel">
+      <h2>CURRENT ROTATION</h2>
+      <div id="playlistRows"></div>
+    </div>
+  </div>
+</div>
+
+<!-- LEXI-COMMAND HUD -->
+<div id="lexi-hud">
+    <div class="hud-prefix">LEXI_PILOT_V17.7_CMD:></div>
+    <input type="text" id="lexi-input" placeholder="Awaiting 'parley' command..." autocomplete="off">
+</div>
+
+<script>
+const tracks = [
+  { title:"你收皮啦 (C4 Heritage)", artist:"DJPOLO", duration:165 },
+  { title:"Turn Up The Noise (Sick Team Mix)", artist:"CDFM", duration:192 },
+  { title:"Evolution 01 (High-Intensity)", artist:"ARCHITECT", duration:118 },
+];
+
+let currentIndex = 0;
+
+// BUILD PLAYLIST
+const playlistRoot = document.getElementById('playlistRows');
+tracks.forEach((t, i) => {
+  const row = document.createElement('div');
+  row.className = 'playlist-row' + (i === 0 ? ' active' : '');
+  row.innerHTML = `<div class="idx">${String(i+1).padStart(2,'0')}</div><div style="width:56px;height:56px;background:#16324f;border-radius:4px;"></div><div class="meta"><b>${t.title}</b><br><small style="color:var(--blue-bright)">${t.artist}</small></div><div></div><div style="text-align:right;">03:45</div>`;
+  playlistRoot.appendChild(row);
+});
+
+// HERO EQ
+const heroEq = document.getElementById('heroEq');
+for(let i=0;i<60;i++){
+  const el = document.createElement('div'); el.className = 'bar';
+  el.style.height = (10 + Math.random()*30)+'px'; el.style.animationDelay = (Math.random()*1)+'s';
+  heroEq.appendChild(el);
+}
+
+// LEXI COMMAND LOGIC
+const lexiInput = document.getElementById('lexi-input');
+lexiInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const cmd = lexiInput.value.toLowerCase().trim();
+    if (cmd === 'parley') {
+      alert("IDENTITY VERIFIED: WELCOME BACK ARCHITECT.");
+      document.body.style.boxShadow = "inset 0 0 100px rgba(0,242,255,0.2)";
+    }
+    lexiInput.value = '';
+  }
+});
+</script>
+</body>
+</html>
