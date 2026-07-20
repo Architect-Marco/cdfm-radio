@@ -183,7 +183,7 @@
     position:relative; overflow:hidden;
     border:1px solid rgba(255,154,61,0.35);
   }
-  .cover canvas{ position:absolute; inset:0; width:100%; height:100%; }
+  .cover img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   .np-info{ flex:1; min-width:0; }
   .live-chip{
     display:inline-flex; align-items:center; gap:6px;
@@ -264,7 +264,7 @@
     width:56px; height:56px; border-radius:6px; overflow:hidden; position:relative;
     border:1px solid rgba(255,154,61,0.25);
   }
-  .playlist-row .thumb canvas{ position:absolute; inset:0; width:100%; height:100%; }
+  .playlist-row .thumb img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   .playlist-row .meta .title{ font-size:14px; font-weight:700; color:var(--text); }
   .playlist-row .meta .artist{ font-size:12px; color:var(--orange); font-weight:600; margin-top:2px; }
   .playlist-row .pwave{ display:flex; align-items:center; gap:2px; height:24px; }
@@ -386,7 +386,7 @@
     <div class="panel">
       <h2>NOW ON AIR</h2>
       <div class="nowplaying">
-        <div class="cover"><canvas id="npCover" width="104" height="104"></canvas></div>
+        <div class="cover"><img src="cover-art.png" alt="CDFM 108.8 cover art"></div>
         <div class="np-info">
           <div class="live-chip"><span class="liveled"></span>LIVE</div>
           <div class="np-title" id="npTitle">—</div>
@@ -520,7 +520,7 @@ tracks.forEach((t, i) => {
   row.id = 'row-'+i;
   row.innerHTML = `
     <div class="idx" id="idx-${i}">${String(i+1).padStart(2,'0')}</div>
-    <div class="thumb"><canvas width="56" height="56" id="thumb-${i}"></canvas></div>
+    <div class="thumb"><img src="cover-art.png" alt="cover art"></div>
     <div class="meta">
       <div class="title">${t.title}</div>
       <div class="artist">${t.subtitle} &middot; ${t.artist}</div>
@@ -530,7 +530,7 @@ tracks.forEach((t, i) => {
   `;
   playlistRoot.appendChild(row);
 });
-tracks.forEach((t,i)=>{ drawCoverArt(document.getElementById('thumb-'+i), t.palette, i*13+3); });
+/* thumbnails now use the shared cover-art.png profile image (see markup above) */
 
 /* mini static waveforms per playlist row */
 const playlistBars = [];
@@ -593,7 +593,7 @@ function renderCurrentTrack(){
   const t = tracks[currentIndex];
   document.getElementById('npTitle').textContent = t.title;
   document.getElementById('npArtist').textContent = t.subtitle + ' · ' + t.artist;
-  drawCoverArt(document.getElementById('npCover'), t.palette, currentIndex*31+5);
+  /* cover art now uses the shared cover-art.png profile image (see markup above) */
   buildNpWave(currentIndex);
 
   const nextIdx = (currentIndex+1) % tracks.length;
