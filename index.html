@@ -324,6 +324,8 @@
   <div class="box" id="startHintBox">TAP ANYWHERE TO TUNE IN<small>CDFM 108.8 broadcasts continuously once the signal connects</small></div>
 </div>
 
+<div id="skipToast" style="position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(20px); z-index:60; background:#0a1220; border:1px solid var(--orange); color:var(--orange); font-size:12px; font-weight:700; letter-spacing:1px; padding:12px 20px; border-radius:8px; opacity:0; transition:opacity .3s ease, transform .3s ease; pointer-events:none; max-width:90vw; text-align:center;"></div>
+
 <div class="wrap">
 
   <!-- ============ HERO ============ -->
@@ -410,7 +412,7 @@
         <p>From remixing HK legends to performing live across the Trinity — Malaysia, Singapore, Hong Kong — this is the high-fidelity DNA they can't replicate. Your lane. Your identity. Your station.</p>
         <div class="network-chip">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 7.5a5 5 0 0 1 0 9M5 5a9 9 0 0 1 0 14M12 12a1 1 0 1 0 0-.001"/></svg>
-          POWERED BY AETHERWAVE STUDIO
+          SOVEREIGN GRID BROADCAST NETWORK
         </div>
       </div>
     </div>
@@ -430,17 +432,17 @@
 <script>
 /* ================= TRACK DATA (real audio files) ================= */
 const tracks = [
-  { title:"THIS JOURNEY HAS NO END", subtitle:"这段旅程没有终点", artist:"DJPOLOMACO", src:"1 - 这段旅程没有终点 - This journey has no end.mp3", palette:['#0d1b2e','#ff9a3d','#e53935'] },
-  { title:"THIS IS HOW I LOVE YOU", subtitle:"这就是我爱你", artist:"DJPOLOMACO", src:"2 - 这就是我爱你 - This Is How I Love You.mp3", palette:['#12100d','#ff9a3d','#7a2b0a'] },
-  { title:"THE HARDER IT IS", subtitle:"越难越好", artist:"DJPOLOMACO", src:"3 - 越难越好 - The Harder It Is.mp3", palette:['#04101c','#ff9a3d','#e53935'] },
-  { title:"BABY LET ME SEE YOUR HEART", subtitle:"让我看见心", artist:"DJPOLOMACO", src:"4 - 让我看见心 - baby let me see your heart.mp3", palette:['#0b0b12','#ff9a3d','#c0392b'] },
-  { title:"LET ME LOVE YOU", subtitle:"让我靠近我", artist:"DJPOLOMACO", src:"5 - 让我靠近我 - let me love you.mp3", palette:['#0a1220','#4fc3ff','#2196f3'] },
-  { title:"SOMEONE TO LOVE", subtitle:"给我一个人", artist:"DJPOLOMACO", src:"6 - 给我一个人 - Someone To Love.mp3", palette:['#050a14','#ff9a3d','#4fc3ff'] },
-  { title:"BABY BABY", subtitle:"甜心宝贝", artist:"DJPOLOMACO", src:"7 - 甜心宝贝 - Baby Baby.mp3", palette:['#120024','#ff3b30','#4fc3ff'] },
-  { title:"ROSES ARE RED", subtitle:"玫瑰色的告白", artist:"DJPOLOMACO", src:"8 - 玫瑰色的告白 - roses are red.mp3", palette:['#160a10','#e53935','#ff9a3d'] },
-  { title:"HOW AM I SUPPOSED TO LIVE WITHOUT YOU", subtitle:"没有你的日子", artist:"DJPOLOMACO", src:"9 - 没有你的日子 - how am i supposed to live without you.mp3", palette:['#0d1b2e','#7d92ad','#ffffff'] },
-  { title:"CITY NEVER SLEEPS", subtitle:"沙巴夜不打烊", artist:"DJPOLOMACO", src:"10 - 沙巴夜不打烊 - City Never Sleeps.mp3", palette:['#050b14','#ff9a3d','#2196f3'] },
-  { title:"FOREVER BABY", subtitle:"永远的宝贝", artist:"DJPOLOMACO", src:"11 - 永远的宝贝 - Forever Baby.mp3", palette:['#0a1422','#4fc3ff','#ff9a3d'] },
+  { title:"THIS JOURNEY HAS NO END", subtitle:"这段旅程没有终点", artist:"DJPOLOMACO", src:"1 - 这段旅程没有终点 - This journey has no end - 5.02.mp3", palette:['#0d1b2e','#ff9a3d','#e53935'] },
+  { title:"THIS IS HOW I LOVE YOU", subtitle:"这就是我爱你", artist:"DJPOLOMACO", src:"2 - 这就是我爱你 - This Is How I Love You - 5.32.mp3", palette:['#12100d','#ff9a3d','#7a2b0a'] },
+  { title:"THE HARDER IT IS", subtitle:"越难越好", artist:"DJPOLOMACO", src:"3 - 越难越好 - The Harder It Is - 5.33.mp3", palette:['#04101c','#ff9a3d','#e53935'] },
+  { title:"BABY LET ME SEE YOUR HEART", subtitle:"让我看见心", artist:"DJPOLOMACO", src:"4 - 让我看见心 - baby let me see your heart - 3.54.mp3", palette:['#0b0b12','#ff9a3d','#c0392b'] },
+  { title:"LET ME LOVE YOU", subtitle:"让我靠近我", artist:"DJPOLOMACO", src:"5 - 让我靠近我 - let me love you - 6.37.mp3", palette:['#0a1220','#4fc3ff','#2196f3'] },
+  { title:"SOMEONE TO LOVE", subtitle:"给我一个人", artist:"DJPOLOMACO", src:"6 - 给我一个人 - Someone To Love - 4.01.mp3", palette:['#050a14','#ff9a3d','#4fc3ff'] },
+  { title:"BABY BABY", subtitle:"甜心宝贝", artist:"DJPOLOMACO", src:"7 - 甜心宝贝 - Baby Baby - 5.20.mp3", palette:['#120024','#ff3b30','#4fc3ff'] },
+  { title:"ROSES ARE RED", subtitle:"玫瑰色的告白", artist:"DJPOLOMACO", src:"8 - 玫瑰色的告白 - roses are red - 4.40.mp3", palette:['#160a10','#e53935','#ff9a3d'] },
+  { title:"HOW AM I SUPPOSED TO LIVE WITHOUT YOU", subtitle:"没有你的日子", artist:"DJPOLOMACO", src:"9 - 没有你的日子 - how am i supposed to live without you - 4.35.mp3", palette:['#0d1b2e','#7d92ad','#ffffff'] },
+  { title:"CITY NEVER SLEEPS", subtitle:"沙巴夜不打烊", artist:"DJPOLOMACO", src:"10 - 沙巴夜不打烊 - City Never Sleeps - 3.57.mp3", palette:['#050b14','#ff9a3d','#2196f3'] },
+  { title:"FOREVER BABY", subtitle:"永远的宝贝", artist:"DJPOLOMACO", src:"11 - 永远的宝贝 - Forever Baby - 4.04.mp3", palette:['#0a1422','#4fc3ff','#ff9a3d'] },
 ];
 
 let currentIndex = 0;
@@ -633,19 +635,36 @@ audio.addEventListener('ended', ()=>{
   loadTrack(nextIdx);
 });
 
+let skipToastTimer = null;
+function showSkipToast(msg){
+  const toast = document.getElementById('skipToast');
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  toast.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(skipToastTimer);
+  skipToastTimer = setTimeout(()=>{
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(-50%) translateY(20px)';
+  }, 3500);
+}
+
+let lastErroredIndex = -1;
 audio.addEventListener('error', ()=>{
-  const box = document.getElementById('startHintBox');
   const code = audio.error ? audio.error.code : 0;
   const reasons = {
-    1: 'Loading was aborted.',
-    2: 'Network error while fetching the file.',
-    3: 'The audio could not be decoded.',
-    4: 'File not found at "' + tracks[currentIndex].src + '" — check the exact filename and folder in your GitHub repo.'
+    1: 'loading aborted',
+    2: 'network error',
+    3: 'could not decode audio',
+    4: 'file not found — check the exact filename in your repo'
   };
-  box.innerHTML = 'COULD NOT LOAD TRACK ' + (currentIndex+1) +
-    '<small>' + (reasons[code] || 'Unknown playback error.') +
-    ' Make sure index.html, cover-art.png, and all 11 mp3 files are in the same folder, with filenames matching exactly.</small>';
-  startHint.classList.remove('hidden');
+  showSkipToast('TRACK ' + (currentIndex+1) + ' UNAVAILABLE (' + (reasons[code] || 'unknown error') + ') — SKIPPING TO NEXT');
+
+  // avoid an infinite loop if every track is broken
+  if(lastErroredIndex === currentIndex) return;
+  lastErroredIndex = currentIndex;
+
+  const nextIdx = (currentIndex+1) % tracks.length;
+  setTimeout(()=>{ loadTrack(nextIdx); }, 800);
 });
 
 audio.addEventListener('timeupdate', ()=>{
