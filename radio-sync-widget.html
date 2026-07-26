@@ -1,0 +1,102 @@
+<!--
+  RADIO SYNC WIDGET — drop this into both wkorfm-radio/index.html and
+  cdfm-radio/index.html, replacing the existing "NOW ON AIR" and
+  "PLAYLIST" sections with these two blocks (keep the ids exactly as
+  they are — the script below targets them by id).
+
+  This is identical on both sites: each site reads its OWN
+  playlist.json (the Worker writes a separate copy into each repo),
+  so no configuration differs between WKOR and CDFM.
+-->
+
+<section id="radio-sync-now-playing">
+  <span id="radio-sync-live-dot" style="display:none;">● LIVE</span>
+  <div id="radio-sync-now-title">—</div>
+  <div id="radio-sync-now-artist">—</div>
+  <audio id="radio-sync-player" controls style="width:100%;"></audio>
+</section>
+
+<section id="radio-sync-playlist">
+  <h2>PLAYLIST</h2>
+  <ol id="radio-sync-playlist-list"></ol>
+</section>
+
+<script>
+(function () {
+  var POLL_MS = 20000; // re-check playlist.json every 20s so the page stays live without a reload
+  var lastTracks = [];
+
+  function escapeHtml(str) {
+    return String(str || '').replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function playTrack(i) {
+    var t = lastTracks[i];
+    if (!t) return;
+    var titleEl = document.getElementById('radio-sync-now-title');
+    var artistEl = document.getElementById('radio-sync-now-artist');
+    var player = document.getElementById('radio-sync-player');
+    if (titleEl) titleEl.textContent = t.title || '—';
+    if (artistEl) artistEl.textContent = t.artist || '—';
+    if (player && t.src) {
+      player.src = t.src;
+      player.play().catch(function () {}); // autoplay may be blocked until a user gesture — that's fine, controls still work
+    }
+  }
+  window.radioSyncPlayTrack = playTrack; // exposed so playlist rows can call it on click
+
+  function render(data) {
+    var tracks = (data && Array.isArray(data.tracks)) ? data.tracks : [];
+    var isLive = !!(data && data.isLive);
+    lastTracks = tracks;
+
+    var liveDot = document.getElementById('radio-sync-live-dot');
+    if (liveDot) liveDot.style.display = isLive ? '' : 'none';
+
+    var titleEl = document.getElementById('radio-sync-now-title');
+    var artistEl = document.getElementById('radio-sync-now-artist');
+    var player = document.getElementById('radio-sync-player');
+    var first = tracks[0];
+    if (titleEl) titleEl.textContent = first ? first.title : '—';
+    if (artistEl) artistEl.textContent = first ? first.artist : '—';
+    if (player && first && first.src && player.getAttribute('data-current-src') !== first.src) {
+      player.src = first.src;
+      player.setAttribute('data-current-src', first.src);
+    }
+
+    var listEl = document.getElementById('radio-sync-playlist-list');
+    if (listEl) {
+      listEl.innerHTML = tracks.map(function (t, i) {
+        return '<li class="radio-sync-track" onclick="window.radioSyncPlayTrack(' + i + ')">' +
+          (t.art ? '<img src="' + t.art + '" alt="" class="radio-sync-track-art">' : '') +
+          '<span class="radio-sync-track-num">' + (i + 1) + '</span>' +
+          '<span class="radio-sync-track-title">' + escapeHtml(t.title) + '</span>' +
+          '<span class="radio-sync-track-artist">' + escapeHtml(t.artist) + '</span>' +
+          '</li>';
+      }).join('');
+    }
+  }
+
+  function poll() {
+    // Cache-bust so browsers/CDN edges don't serve a stale copy between updates.
+    fetch('./playlist.json?t=' + Date.now())
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) { if (data) render(data); })
+      .catch(function (err) { console.error('Playlist fetch failed:', err); });
+  }
+
+  poll();
+  setInterval(poll, POLL_MS);
+})();
+</script>
+
+<style>
+  #radio-sync-live-dot { color: #ff3b3b; font-weight: 900; }
+  .radio-sync-track { display: flex; align-items: center; gap: 10px; padding: 6px 0; cursor: pointer; }
+  .radio-sync-track:hover { opacity: 0.8; }
+  .radio-sync-track-art { width: 28px; height: 28px; object-fit: cover; border-radius: 4px; }
+  .radio-sync-track-num { opacity: 0.5; width: 1.5em; text-align: right; }
+  .radio-sync-track-artist { opacity: 0.6; font-size: 0.85em; }
+</style>
