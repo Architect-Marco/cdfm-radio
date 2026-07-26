@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-26T14:13:00.069Z",
+  "updatedAt": "2026-07-26T14:19:00.824Z",
   "isLive": true,
   "tracks": [
     {
@@ -21,6 +21,13 @@
       "title": "YOU FEEL THE EMOTION (PT 2) - FT. LEXI CON",
       "artist": "THE SICK TEAM",
       "src": "https://architect-marco.github.io/SOVEREIGN-GRID-DASHBOARD/WKOR/9%20-%20YOU%20FEEL%20THE%20EMOTION%20-%20THE%20SICK%20TEAM%20FT%20LEXI%20CON%202%20-%205.13min.mp3",
+      "art": null
+    },
+    {
+      "id": "st-1785075539625-nw74j",
+      "title": "IM THE SCAR YOU COULDNT ERASE (TSYCE MIX)",
+      "artist": "THE SICK TEAM",
+      "src": "https://architect-marco.github.io/SOVEREIGN-GRID-DASHBOARD/CDFM/5%20-%20IM%20THE%20SCAR%20YOU%20COULDNT%20ERASE%20-%20THE%20SICK%20TEAM%20(TSYCE%20MIX)%20-%204.40min.mp3",
       "art": null
     }
   ]
