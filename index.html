@@ -431,7 +431,7 @@
 
 <script>
 /* ================= TRACK DATA (real audio files) ================= */
-const tracks = [
+let tracks = [
   { title:"THIS JOURNEY HAS NO END", subtitle:"这段旅程没有终点", artist:"DJPOLOMACO", src:"1 - 这段旅程没有终点 - This journey has no end - 5.02.mp3", palette:['#0d1b2e','#ff9a3d','#e53935'] },
   { title:"THIS IS HOW I LOVE YOU", subtitle:"这就是我爱你", artist:"DJPOLOMACO", src:"2 - 这就是我爱你 - This Is How I Love You - 5.32.mp3", palette:['#12100d','#ff9a3d','#7a2b0a'] },
   { title:"THE HARDER IT IS", subtitle:"越难越好", artist:"DJPOLOMACO", src:"3 - 越难越好 - The Harder It Is - 5.33.mp3", palette:['#04101c','#ff9a3d','#e53935'] },
@@ -620,7 +620,7 @@ function renderCurrentTrack(){
 
 function loadTrack(i){
   currentIndex = i;
-  audio.src = encodeURI(tracks[i].src);
+  audio.src = tracks[i].preEncoded ? tracks[i].src : encodeURI(tracks[i].src);
   renderCurrentTrack();
   audio.play().catch(()=>{ /* waiting for user gesture */ });
 }
@@ -771,6 +771,76 @@ setInterval(()=>{
     el.textContent = next.toLocaleString();
   }
 }, 3000);
+
+/* ================= DASHBOARD SYNC ================= */
+/* Appends any tracks pushed from the Radio Station dashboard on top of
+   the 11 built-in tracks above. Never touches or reorders the
+   originals — only adds after them. Runs once on load, then re-checks
+   every 20s so new uploads show up without a page reload. */
+let knownSyncedSrcs = new Set();
+
+function appendSyncedTrack(t){
+  const i = tracks.length;
+  tracks.push({
+    title: t.title || 'Untitled',
+    subtitle: '',
+    artist: t.artist || '',
+    src: t.src,
+    palette: ['#0a1220','#4fc3ff','#2196f3'],
+    preEncoded: true,
+  });
+
+  const row = document.createElement('div');
+  row.className = 'playlist-row';
+  row.id = 'row-'+i;
+  row.innerHTML = `
+    <div class="idx" id="idx-${i}">${String(i+1).padStart(2,'0')}</div>
+    <div class="thumb"><img src="cover-art.png" alt="cover art"></div>
+    <div class="meta">
+      <div class="title">${tracks[i].title}</div>
+      <div class="artist">${tracks[i].artist}</div>
+    </div>
+    <div class="pwave" id="pwave-${i}"></div>
+    <div class="dur" id="dur-${i}">--:--</div>
+  `;
+  playlistRoot.appendChild(row);
+
+  const wave = document.getElementById('pwave-'+i);
+  const rand = mulberry32(i*97+11);
+  const bars = [];
+  for(let b=0;b<46;b++){
+    const el = document.createElement('div');
+    el.className = 'b';
+    el.style.height = (4 + rand()*20)+'px';
+    wave.appendChild(el);
+    bars.push(el);
+  }
+  playlistBars.push(bars);
+
+  const probe = document.createElement('audio');
+  probe.preload = 'metadata';
+  probe.src = tracks[i].src;
+  probe.addEventListener('loadedmetadata', ()=>{
+    document.getElementById('dur-'+i).textContent = fmtTime(probe.duration);
+  });
+}
+
+function checkPlaylistSync(){
+  fetch('./playlist.json?t=' + Date.now())
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      if (!data || !Array.isArray(data.tracks)) return;
+      data.tracks.forEach(t => {
+        if (t.src && !knownSyncedSrcs.has(t.src)) {
+          knownSyncedSrcs.add(t.src);
+          appendSyncedTrack(t);
+        }
+      });
+    })
+    .catch(err => console.error('Playlist sync check failed:', err));
+}
+checkPlaylistSync();
+setInterval(checkPlaylistSync, 20000);
 </script>
 </body>
 </html>
