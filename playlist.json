@@ -1,5 +1,13 @@
 {
-  "updatedAt": "2026-07-26T23:31:14.510Z",
-  "isLive": false,
-  "tracks": []
+  "updatedAt": "2026-07-26T23:31:18.045Z",
+  "isLive": true,
+  "tracks": [
+    {
+      "id": "st-1785108659657-r3bl3",
+      "title": "WHO WE ARE - THE SICK TEAM (LKF MIX)",
+      "artist": "djpolo",
+      "src": null,
+      "art": null
+    }
+  ]
 }
