@@ -1,5 +1,27 @@
 {
-  "updatedAt": "2026-07-27T10:03:10.439Z",
-  "isLive": false,
-  "tracks": []
+  "updatedAt": "2026-07-27T10:03:43.394Z",
+  "isLive": true,
+  "tracks": [
+    {
+      "id": "st-1785123270644-19q8l",
+      "title": "MINI ALBUM MIX (INTRO)",
+      "artist": "THE SICK TEAM",
+      "src": "https://architect-marco.github.io/SOVEREIGN-GRID-DASHBOARD/WKOR/0%20-%20THE%20SICK%20TEAM%20MINI%20ALUM%20MIX%20-%20intro%20-%202.02min.mp3",
+      "art": null
+    },
+    {
+      "id": "st-1785123330690-fviza",
+      "title": "1 - WHO WE ARE - THE SICK TEAM (LKF MIX) - 4.40min",
+      "artist": "djpolo",
+      "src": null,
+      "art": null
+    },
+    {
+      "id": "st-1785126570448-vvncw",
+      "title": "WKOR-THE GLOBAL SYNC",
+      "artist": "djpolo",
+      "src": null,
+      "art": null
+    }
+  ]
 }
