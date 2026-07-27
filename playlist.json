@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T04:29:17.423Z",
+  "updatedAt": "2026-07-27T04:29:32.140Z",
   "isLive": true,
   "tracks": [
     {
@@ -13,6 +13,13 @@
       "id": "st-1785123330690-fviza",
       "title": "1 - WHO WE ARE - THE SICK TEAM (LKF MIX) - 4.40min",
       "artist": "djpolo",
+      "src": null,
+      "art": null
+    },
+    {
+      "id": "st-1785126570448-vvncw",
+      "title": "WKOR-THE GLOBAL SYNC",
+      "artist": "Uploading…",
       "src": null,
       "art": null
     }
