@@ -1,24 +1,59 @@
 {
-  "updatedAt": "2026-07-28T00:43:03.808Z",
+  "updatedAt": "2026-07-28T00:43:06.123Z",
   "isLive": true,
   "tracks": [
     {
-      "id": "st-1785123270644-19q8l",
-      "title": "MINI ALBUM MIX (INTRO)",
-      "artist": "THE SICK TEAM",
-      "src": "https://architect-marco.github.io/SOVEREIGN-GRID-DASHBOARD/WKOR/0%20-%20THE%20SICK%20TEAM%20MINI%20ALUM%20MIX%20-%20intro%20-%202.02min.mp3",
-      "art": null
-    },
-    {
-      "id": "st-1785123330690-fviza",
+      "id": "st-1785167423111-xksal",
       "title": "1 - WHO WE ARE - THE SICK TEAM (LKF MIX) - 4.40min",
       "artist": "djpolo",
       "src": null,
       "art": null
     },
     {
-      "id": "st-1785126570448-vvncw",
-      "title": "WKOR-THE GLOBAL SYNC",
+      "id": "st-1785167431853-8a3fy",
+      "title": "2 - THE GRAND - THE SICK TEAM (TGD MIX) - 5.03min",
+      "artist": "djpolo",
+      "src": null,
+      "art": null
+    },
+    {
+      "id": "st-1785167444972-kr49c",
+      "title": "3 - ROBERT CHAI - THE SICK TEAM (RCT MIX) - 5.13min",
+      "artist": "djpolo",
+      "src": null,
+      "art": null
+    },
+    {
+      "id": "st-1785167458318-8yxc5",
+      "title": "4 - HK NIGHTLIFE - THE SICK TEAM (HKNL MIX) - 4.12min",
+      "artist": "djpolo",
+      "src": null,
+      "art": null
+    },
+    {
+      "id": "st-1785167473948-o9efo",
+      "title": "5 - IM THE SCAR YOU COULDNT ERASE - THE SICK TEAM (TSYCE MIX) - 4.40min",
+      "artist": "djpolo",
+      "src": null,
+      "art": null
+    },
+    {
+      "id": "st-1785167482706-bk5cg",
+      "title": "6 - ROBERT CHAI - THE SICK TEAM (HBT MIX) - 4.19min",
+      "artist": "djpolo",
+      "src": null,
+      "art": null
+    },
+    {
+      "id": "st-1785167493917-g7sa8",
+      "title": "7 - LE SAU PEH LAH - THE SICK TEAM (LSPL MIX) - 5.18min",
+      "artist": "djpolo",
+      "src": null,
+      "art": null
+    },
+    {
+      "id": "st-1785167502133-uyehy",
+      "title": "8 - LAN KWAI FUNG - THE SICK TEAM (LKFTST MIX) - 5.42min",
       "artist": "djpolo",
       "src": null,
       "art": null
