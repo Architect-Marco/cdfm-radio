@@ -1,33 +1,61 @@
 {
-  "updatedAt": "2026-07-28T04:45:53.760Z",
+  "updatedAt": "2026-07-28T04:45:56.599Z",
   "isLive": true,
   "tracks": [
     {
-      "id": "st-1785202374947-1jq80",
-      "title": "WKOR SWEEPER 1",
+      "id": "st-1785167423111-xksal",
+      "title": "1 - WHO WE ARE - THE SICK TEAM (LKF MIX) - 4.40min",
       "artist": "djpolo",
-      "src": "https://architect-marco.github.io/SOVEREIGN-GRID-DASHBOARD/WKOR/WKOR%20SWEEPER%201.mp3",
+      "src": null,
       "art": null
     },
     {
-      "id": "st-1785202419305-gntc8",
-      "title": "2 - I CANT LET THIS FEELING GO - FEAT LEXI CON (Original Mix) - 4.54min",
+      "id": "st-1785167431853-8a3fy",
+      "title": "2 - THE GRAND - THE SICK TEAM (TGD MIX) - 5.03min",
       "artist": "djpolo",
-      "src": "https://architect-marco.github.io/SOVEREIGN-GRID-DASHBOARD/WKOR/2%20-%20I%20CANT%20LET%20THIS%20FEELING%20GO%20-%20FEAT%20LEXI%20CON%20(Original%20Mix)%20-%204.54min.mp3",
+      "src": null,
       "art": null
     },
     {
-      "id": "st-1785202638383-ylzee",
-      "title": "WKOR SWEEPER 2",
+      "id": "st-1785167444972-kr49c",
+      "title": "3 - ROBERT CHAI - THE SICK TEAM (RCT MIX) - 5.13min",
       "artist": "djpolo",
-      "src": "https://architect-marco.github.io/SOVEREIGN-GRID-DASHBOARD/WKOR/WKOR%20SWEEPER%202.mp3",
+      "src": null,
       "art": null
     },
     {
-      "id": "st-1785202697271-8zivc",
-      "title": "TURN UP THE NOISE - THE SICK TEAM - (Firewall Prime)",
+      "id": "st-1785167458318-8yxc5",
+      "title": "4 - HK NIGHTLIFE - THE SICK TEAM (HKNL MIX) - 4.12min",
       "artist": "djpolo",
-      "src": "https://architect-marco.github.io/SOVEREIGN-GRID-DASHBOARD/WKOR/TURN%20UP%20THE%20NOISE%20-%20THE%20SICK%20TEAM%20-%20(Firewall%20Prime).mp3",
+      "src": null,
+      "art": null
+    },
+    {
+      "id": "st-1785167473948-o9efo",
+      "title": "5 - IM THE SCAR YOU COULDNT ERASE - THE SICK TEAM (TSYCE MIX) - 4.40min",
+      "artist": "djpolo",
+      "src": null,
+      "art": null
+    },
+    {
+      "id": "st-1785167482706-bk5cg",
+      "title": "6 - ROBERT CHAI - THE SICK TEAM (HBT MIX) - 4.19min",
+      "artist": "djpolo",
+      "src": null,
+      "art": null
+    },
+    {
+      "id": "st-1785167493917-g7sa8",
+      "title": "7 - LE SAU PEH LAH - THE SICK TEAM (LSPL MIX) - 5.18min",
+      "artist": "djpolo",
+      "src": null,
+      "art": null
+    },
+    {
+      "id": "st-1785167502133-uyehy",
+      "title": "8 - LAN KWAI FUNG - THE SICK TEAM (LKFTST MIX) - 5.42min",
+      "artist": "djpolo",
+      "src": null,
       "art": null
     }
   ]
