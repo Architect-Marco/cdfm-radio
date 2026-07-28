@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-28T01:33:02.110Z",
+  "updatedAt": "2026-07-28T01:33:41.586Z",
   "isLive": true,
   "tracks": [
     {
@@ -7,6 +7,13 @@
       "title": "WKOR SWEEPER 1",
       "artist": "djpolo",
       "src": "https://architect-marco.github.io/SOVEREIGN-GRID-DASHBOARD/WKOR/WKOR%20SWEEPER%201.mp3",
+      "art": null
+    },
+    {
+      "id": "st-1785202419305-gntc8",
+      "title": "2 - I CANT LET THIS FEELING GO - FEAT LEXI CON (Original Mix) - 4.54min",
+      "artist": "Uploading…",
+      "src": null,
       "art": null
     }
   ]
