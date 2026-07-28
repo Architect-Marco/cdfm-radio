@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-07-28T05:06:14.169Z",
+  "updatedAt": "2026-07-28T05:06:20.515Z",
   "isLive": true,
   "tracks": [
     {
       "id": "st-1785215173247-p1qfu",
       "title": "CDFM SWP 1",
-      "artist": "Uploading…",
-      "src": null,
+      "artist": "djpolo",
+      "src": "https://architect-marco.github.io/SOVEREIGN-GRID-DASHBOARD/WKOR/CDFM%20SWP%201.mp3",
       "art": null
     }
   ]
