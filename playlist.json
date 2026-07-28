@@ -1,27 +1,5 @@
 {
-  "updatedAt": "2026-07-28T05:04:17.235Z",
+  "updatedAt": "2026-07-28T05:04:19.954Z",
   "isLive": true,
-  "tracks": [
-    {
-      "id": "st-1785167482706-bk5cg",
-      "title": "6 - ROBERT CHAI - THE SICK TEAM (HBT MIX) - 4.19min",
-      "artist": "djpolo",
-      "src": null,
-      "art": null
-    },
-    {
-      "id": "st-1785167493917-g7sa8",
-      "title": "7 - LE SAU PEH LAH - THE SICK TEAM (LSPL MIX) - 5.18min",
-      "artist": "djpolo",
-      "src": null,
-      "art": null
-    },
-    {
-      "id": "st-1785167502133-uyehy",
-      "title": "8 - LAN KWAI FUNG - THE SICK TEAM (LKFTST MIX) - 5.42min",
-      "artist": "djpolo",
-      "src": null,
-      "art": null
-    }
-  ]
+  "tracks": []
 }
